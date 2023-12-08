@@ -4,21 +4,32 @@
  * and open the template in the editor.
  */
 package GUI;
+
+import Class.Order;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author PC
  */
 public class TaskHistory extends javax.swing.JFrame {
+    private JTable itemTable;
+    private DefaultTableModel tableModel;
+    private ArrayList<Order> orderList = Order.loadorders();
+    private String curRunner = "E01";
 
-    /**
-     * Creates new form TaskHistory
-     */
+
     public TaskHistory() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Login");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        tableModel = Order.startViewTable(orderList, curRunner);
+        jTable1.setModel(tableModel);
+        jTable1.setDefaultEditor(Object.class, null);
     }
 
     /**
@@ -44,7 +55,7 @@ public class TaskHistory extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Address", "Customer Name", "Phone Number", "Time"
+                "Order ID", "Address", "Customer Name", "Phone Number", "Date"
             }
         ) {
             Class[] types = new Class [] {

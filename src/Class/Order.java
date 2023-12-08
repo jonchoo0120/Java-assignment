@@ -5,28 +5,65 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Order{
-    private String orderID; 
+    private int orderID; 
     private String address;
     private String name;
     private String phoneNum;
     private String status;
+    private String runnerID;
+    private String date;
+    private float earnings;
     private static ArrayList<Order> orderList;
     private static DefaultTableModel tableModel;
 
-    public Order(String orderID, String address, String name, String phoneNum, String status) {
+    public Order(int orderID, String address, String name, String phoneNum, String status, String runnerID, String date, float earnings) {
         this.orderID = orderID;
         this.address = address;
         this.name = name;
         this.phoneNum = phoneNum;
         this.status = status;
+        this.runnerID = runnerID;
+        this.date = date;
+        this.earnings = earnings;
     }
 
-    public String getOrderID() {
+    public float getEarnings() {
+        return earnings;
+    }
+
+    public void setEarnings(float earnings) {
+        this.earnings = earnings;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getRunnerID() {
+        return runnerID;
+    }
+
+    public void setRunnerID(String runnerID) {
+        this.runnerID = runnerID;
+    }
+
+    public int getOrderID() {
         return orderID;
     }
 
@@ -54,7 +91,7 @@ public class Order{
         return tableModel;
     }
 
-    public void setOrderID(String orderID) {
+    public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
 
@@ -87,18 +124,20 @@ public class Order{
     //array
      public static ArrayList loadorders(){
         orderList = new ArrayList<>();
-        String ordersTxt = "C:\\Users\\PC\\Documents\\NetBeansProjects\\Assignment\\src\\Database\\Order.txt";
+        String ordersTxt = "C:\\Users\\theli\\Documents\\NetBeansProjects\\Java-assignment\\src\\Database\\order.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(ordersTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] orderData = line.split(", ");
-
-                String orderIDLoad = orderData[0];
-                String addressLoad = orderData[1];
-                String nameLoad = orderData[2];
-                String phoneNumLoad = orderData[3];
-                String statusLoad = orderData[4];
-                Order orderLoad = new Order(orderIDLoad,addressLoad, nameLoad, phoneNumLoad, statusLoad);
+                int loadOrderID = Integer.parseInt(orderData[0]);
+                String loadAddress = orderData[1];
+                String loadName = orderData[2];
+                String loadPhoneNum = orderData[3];
+                String loadStatus = orderData[4];
+                String loadRunnerID = orderData[5];
+                String loadDate = orderData[6];
+                float loadEarnings = Float.parseFloat(orderData[7]);
+                Order orderLoad = new Order(loadOrderID,loadAddress, loadName, loadPhoneNum, loadStatus, loadRunnerID, loadDate, loadEarnings);
                 orderList.add(orderLoad);
         }
 
@@ -110,9 +149,9 @@ public class Order{
      }
      
      public static void saveToFile(ArrayList<Order> orderList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Database\\order.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\theli\\Documents\\NetBeansProjects\\Java-assignment\\src\\Database\\order.txt"))) {
             for (Order orderLoad : orderList) {
-                String line = orderLoad.getOrderID() + ", " + orderLoad.getAddress() + ", " + orderLoad.getName() + ", " + orderLoad.getPhoneNum() + ", " + orderLoad.getStatus();
+                String line = orderLoad.getOrderID() + ", " + orderLoad.getAddress() + ", " + orderLoad.getName() + ", " + orderLoad.getPhoneNum() + ", " + orderLoad.getStatus() + ", " + orderLoad.getRunnerID() + ", " + orderLoad.getDate() + ", " + orderLoad.getEarnings();
                 writer.write(line);
                 writer.newLine();
             }
@@ -142,6 +181,168 @@ public class Order{
 
     }
      
+    public static DefaultTableModel startAcceptTable(ArrayList<Order> orderList, String operator) {
+        String[] columnHeaders = {"Order ID", "Address", "Customer Name", "Phone number"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+
+        // Populate the table model with item data
+        for (Order orderLoad : orderList) {
+            if(orderLoad.getRunnerID().equals(operator) && orderLoad.getStatus().equals("pending")){
+                Object[] rowData = {orderLoad.getOrderID(), orderLoad.getAddress(), orderLoad.getName(), orderLoad.getPhoneNum()};
+                tableModel.addRow(rowData);
+            }
+        }
+        return tableModel;
+
+    }
+    
+    public static DefaultTableModel startViewTable(ArrayList<Order> orderList, String operator) {
+        String[] columnHeaders = {"Order ID", "Address", "Customer Name", "Phone number", "Status"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+
+        // Populate the table model with item data
+        for (Order orderLoad : orderList) {
+            if(orderLoad.getRunnerID().equals(operator)){
+                Object[] rowData = {orderLoad.getOrderID(), orderLoad.getAddress(), orderLoad.getName(), orderLoad.getPhoneNum(), orderLoad.getStatus()};
+                tableModel.addRow(rowData);
+            }
+        }
+        return tableModel;
+
+    }
+        
+    public static DefaultTableModel startHistoryTable(ArrayList<Order> orderList, String curRunner, String type) {
+        
+        String[] columnHeaders = {"Date", "Earnings"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+        if(type.equals("Daily")){
+            Map<String, Float> dailyEarningsMap = new TreeMap<>();
+
+            for (Order orderLoad : orderList) {
+                String currentDate = orderLoad.getDate();
+
+                // Skip if the date is "-"
+                if (currentDate.equals("-")) {
+                    continue;
+                }
+
+                // Calculate daily earnings
+                float dailyEarnings = dailyEarningsMap.getOrDefault(currentDate, 0.0f);
+                dailyEarnings += orderLoad.getEarnings();
+                dailyEarningsMap.put(currentDate, dailyEarnings);
+            }
+
+            // Iterate through the daily earnings map and add rows to the table model
+            for (Map.Entry<String, Float> entry : dailyEarningsMap.entrySet()) {
+                String date = entry.getKey();
+                float totalEarnings = entry.getValue();
+
+                // Add each day's total earnings as a row in the table model
+                Object[] rowData = { date, totalEarnings };
+                tableModel.addRow(rowData);
+            }      
+        }else if(type.equals("Monthly")){
+        // TreeMap to store monthly earnings
+        Map<String, Float> monthlyEarningsMap = new TreeMap<>();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d-MMM-yyyy", Locale.US);
+
+        for (Order order : orderList) {
+            String currentDate = order.getDate();
+
+            // Skip if the date is "-"
+            if (currentDate.equals("-")) {
+                continue;
+            }
+
+            try {
+                Date date = dateFormat.parse(currentDate);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.set(Calendar.DAY_OF_MONTH, 1); // Set to the beginning of the month
+
+                String monthYear = dateFormat.format(calendar.getTime());
+                float monthlyEarnings = monthlyEarningsMap.getOrDefault(monthYear, 0.0f);
+                monthlyEarnings += order.getEarnings();
+                monthlyEarningsMap.put(monthYear, monthlyEarnings);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                // Handle parsing exceptions if needed
+            }
+        }
+
+        // Add monthly earnings data to the table model
+        for (Map.Entry<String, Float> entry : monthlyEarningsMap.entrySet()) {
+            String monthYear = entry.getKey();
+            float totalMonthlyEarnings = entry.getValue();
+
+            // Format the month-year and total earnings
+            String formattedMonthYear = monthYear.substring(2);
+
+            // Add formatted data to the table model
+            Object[] rowData = { formattedMonthYear, totalMonthlyEarnings};
+            tableModel.addRow(rowData);
+        }
+    } else{
+                    // TreeMap to store yearly earnings
+        Map<String, Float> yearlyEarningsMap = new TreeMap<>();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d-MMM-yyyy", Locale.US);
+
+        for (Order order : orderList) {
+            String currentDate = order.getDate();
+
+            // Skip if the date is "-"
+            if (currentDate.equals("-")) {
+                continue;
+            }
+
+            try {
+                Date date = dateFormat.parse(currentDate);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+
+                // Set to the beginning of the year
+                calendar.set(Calendar.MONTH, Calendar.JANUARY);
+                calendar.set(Calendar.DAY_OF_MONTH, 1);
+
+                String year = String.valueOf(calendar.get(Calendar.YEAR));
+                float yearlyEarnings = yearlyEarningsMap.getOrDefault(year, 0.0f);
+                yearlyEarnings += order.getEarnings();
+                yearlyEarningsMap.put(year, yearlyEarnings);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                // Handle parsing exceptions if needed
+            }
+        }
+
+        // Add yearly earnings data to the table model
+        for (Map.Entry<String, Float> entry : yearlyEarningsMap.entrySet()) {
+            String year = entry.getKey();
+            float totalYearlyEarnings = entry.getValue();
+
+            // Format the year and total earnings
+            String formattedYear = year;
+
+            // Add formatted data to the table model
+            Object[] rowData = { formattedYear, totalYearlyEarnings };
+            tableModel.addRow(rowData);
+        }
+        }
+    return tableModel;
+
+    }
+        
+//    public static String getRandomRunner(String curRunner){
+//        String runner;
+//        for(){
+//            
+//        }
+//        return runner;
+//    }
+     
     public static void saveTableData(JTable jTable1, ArrayList<Order> orderList) {
     int numRows = jTable1.getRowCount();
 
@@ -151,15 +352,21 @@ public class Order{
         String name = (String) jTable1.getValueAt(row, 2);
         String phoneNum = (String) jTable1.getValueAt (row, 3);
         String status = (String) jTable1.getValueAt (row, 4);
+        String runnerID = (String) jTable1.getValueAt (row, 5);
+        String date = (String) jTable1.getValueAt (row, 6);
+        String earnings = (String) jTable1.getValueAt (row, 7);
 
         // Find the corresponding Item object in the itemList based on itemCode
         for (Order orderLoad : orderList) {
-            if (orderLoad.getOrderID().equals(orderID)) {
+            if (orderLoad.getOrderID() == Integer.parseInt(orderID)) {
                 // Update the Item object with the edited values
                 orderLoad.setAddress(address);
                 orderLoad.setName(name);
                 orderLoad.setPhoneNum(phoneNum);
                 orderLoad.setStatus(status);
+                orderLoad.setRunnerID(runnerID);
+                orderLoad.setDate(date);
+                orderLoad.setEarnings(Float.parseFloat(earnings));
                 break;
             }
         }
@@ -169,7 +376,7 @@ public class Order{
     
     public static Order getOrderByID(String orderID, ArrayList<Order> orderList) {
         for (Order orderLoad : orderList) {
-            if (orderLoad.getOrderID().equals(orderID)) {
+            if (orderLoad.getOrderID() == Integer.parseInt(orderID)) {
                 // Update the Item object with the edited values
                 return orderLoad;
             }
@@ -177,6 +384,13 @@ public class Order{
         return null;
     }
     
+    public static int getTotalRunners(){
+        int count = 0;
+        for(Order orderLoad : orderList){
+            count++;
+        }
+        return count;
+    }
     
      public String toString() {
         return "order{" +

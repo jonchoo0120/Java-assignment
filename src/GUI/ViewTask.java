@@ -19,6 +19,7 @@ public class ViewTask extends javax.swing.JFrame {
     private JTable itemTable;
     private DefaultTableModel tableModel;
     private ArrayList<Order> orderList = Order.loadorders();
+    private String curRunner = "E01";
 
     /**
      * Creates new form ViewTask
@@ -29,7 +30,7 @@ public class ViewTask extends javax.swing.JFrame {
         setTitle("Login");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        tableModel = Order.initializeTable(orderList);
+        tableModel = Order.startViewTable(orderList, curRunner);
         jTable2.setModel(tableModel);
         jTable2.setDefaultEditor(Object.class, null);
     }

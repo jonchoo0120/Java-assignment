@@ -1,5 +1,15 @@
-001, address1, John, 016-3331111, out of delivery
-002, address2, Lam, 016-2221111, out of delivery
-003, address3, Sam, 016-4221111, out of delivery
-004, address4, Alex, 016-3221111, out of delivery
-004, address4, Hwei, 016-3221111, out of delivery
+1, address1, John, 016-3331111, out_for_delivery, E01, -, 0
+2, address2, Lam, 016-2221111, delivered, E01, 12-May-2023, 5.00
+3, address3, Sam, 016-4221111, delivered, E02, 12-May-2023, 5.00
+4, address4, Alex, 016-3221111, delivered, E03, 12-May-2023, 5.00
+5, address5, Hwei, 016-3221111, pending, E05, -, 0
+6, address6, Huawei, 016-3221111, pending, E01, -, 0
+7, address7, chingchong, 016-3221111, out_for_delivery, E05, -, 0
+8, address8, chingchong, 016-3221111, out_for_delivery, E06, -, 0
+9, address9, Huawei, 016-3221111, pending, E01, -, 0
+10, address10, Huawei, 016-3221111, waiting_restaurant, E01, -, 0
+11, address11, cHINA, 016-3221111, out_for_delivery, E03, -, 0
+12, address12, Lamy, 016-2221111, delivered, E01, 12-May-2023, 6.00
+13, address13, Lamia, 016-2221111, delivered, E01, 12-May-2023, 3.00
+14, address14, Lam, 016-2221111, delivered, E01, 11-May-2023, 8.00
+15, address14, Lam, 016-2221111, delivered, E01, 11-April-2023, 10.00

@@ -57,7 +57,7 @@
                 <Column editable="true" title="Address" type="java.lang.String"/>
                 <Column editable="true" title="Customer Name" type="java.lang.String"/>
                 <Column editable="true" title="Phone Number" type="java.lang.String"/>
-                <Column editable="true" title="Time" type="java.lang.String"/>
+                <Column editable="true" title="Date" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
