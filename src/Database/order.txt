@@ -1,0 +1,5 @@
+001, address1, John, 016-3331111, out of delivery
+002, address2, Lam, 016-2221111, out of delivery
+003, address3, Sam, 016-4221111, out of delivery
+004, address4, Alex, 016-3221111, out of delivery
+004, address4, Hwei, 016-3221111, out of delivery
