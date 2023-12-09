@@ -1,0 +1,17 @@
+OrderID
+username
+date
+address
+TotalPrice
+firstItem
+Amount
+SinglePrice
+secondItem
+Amount
+SinglePrice
+thirdItem
+Amount
+SinglePrice
+.
+.
+.
