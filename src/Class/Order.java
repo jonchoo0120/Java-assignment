@@ -210,8 +210,23 @@ public class Order{
         return tableModel;
 
     }
+    
+    public static DefaultTableModel startHistoryTable(ArrayList<Order> orderList, String operator) {
+        String[] columnHeaders = {"Order ID", "Address", "Customer Name", "Phone number", "Date"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+
+        // Populate the table model with item data
+        for (Order orderLoad : orderList) {
+            if(orderLoad.getRunnerID().equals(operator) && orderLoad.getStatus().equals("delivered")){
+                Object[] rowData = {orderLoad.getOrderID(), orderLoad.getAddress(), orderLoad.getName(), orderLoad.getPhoneNum(), orderLoad.getDate()};
+                tableModel.addRow(rowData);
+            }
+        }
+        return tableModel;
+
+    }
         
-    public static DefaultTableModel startHistoryTable(ArrayList<Order> orderList, String curRunner, String type) {
+    public static DefaultTableModel startRevenueTable(ArrayList<Order> orderList, String curRunner, String type) {
         
         String[] columnHeaders = {"Date", "Earnings"};
         tableModel = new DefaultTableModel(columnHeaders, 0);

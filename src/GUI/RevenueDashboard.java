@@ -29,13 +29,13 @@ public class RevenueDashboard extends javax.swing.JFrame {
         setTitle("Login");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        tableModel1 = Order.startHistoryTable(orderList, curRunner, "Daily");
+        tableModel1 = Order.startRevenueTable(orderList, curRunner, "Daily");
         jTable1.setModel(tableModel1);
         jTable1.setDefaultEditor(Object.class, null);
-        tableModel2 = Order.startHistoryTable(orderList, curRunner, "Monthly");
+        tableModel2 = Order.startRevenueTable(orderList, curRunner, "Monthly");
         jTable2.setModel(tableModel2);
         jTable2.setDefaultEditor(Object.class, null);
-        tableModel3 = Order.startHistoryTable(orderList, curRunner, "Yearly");
+        tableModel3 = Order.startRevenueTable(orderList, curRunner, "Yearly");
         jTable3.setModel(tableModel3);
         jTable3.setDefaultEditor(Object.class, null);
     }

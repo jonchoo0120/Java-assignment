@@ -6,8 +6,8 @@
 package GUI;
 
 import Class.Order;
-import GUI.MenuGUI;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -89,7 +89,7 @@ public class ViewTask extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable2);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "out of delivery", "delivery is arrived" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "out for delivery", "delivered" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -105,7 +105,12 @@ public class ViewTask extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Aplly");
+        jButton2.setText("Apply");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,7 +130,7 @@ public class ViewTask extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,6 +158,21 @@ public class ViewTask extends javax.swing.JFrame {
         MenuGUI menuGUI = new MenuGUI();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int selectedRow = jTable2.getSelectedRow();
+        if(selectedRow == -1){
+            JOptionPane.showMessageDialog(this, "Please selected a row to edit");
+            return;
+        }
+        tableModel.setValueAt(jComboBox1.getSelectedItem().toString(), selectedRow, 4);
+       String orderID = jTable2.getValueAt(selectedRow, 0).toString();
+        Order order= Order.getOrderByID(orderID,Order.getOrderList());
+       order.setStatus(jComboBox1.getSelectedItem().toString());
+        Order.saveToFile(Order.getOrderList());
+        JOptionPane.showMessageDialog(this, "Changed!");
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
