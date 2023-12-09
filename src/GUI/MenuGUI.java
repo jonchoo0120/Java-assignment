@@ -10,10 +10,12 @@ package GUI;
  * @author PC
  */
 public class MenuGUI extends javax.swing.JFrame {
+    private String userID;
     /**
      * Creates new form Menu
      */
-    public MenuGUI() {
+    public MenuGUI(String userID) {
+        this.userID = userID;
         initComponents();
         setTitle("Menu");
         setLocationRelativeTo(null);
@@ -137,27 +139,27 @@ public class MenuGUI extends javax.swing.JFrame {
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         ViewTask appWindow = new ViewTask();
+         ViewTask appWindow = new ViewTask(userID);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         RevenueDashboard appWindow = new RevenueDashboard();
+         RevenueDashboard appWindow = new RevenueDashboard(userID);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         TaskHistory appWindow = new TaskHistory();
+         TaskHistory appWindow = new TaskHistory(userID);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         AcceptTask appWindow = new AcceptTask();
+         AcceptTask appWindow = new AcceptTask(userID);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        CustomerReview appWindow = new CustomerReview();
+        CustomerReview appWindow = new CustomerReview(userID);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        Notification appWindow = new Notification();
+        Notification appWindow = new Notification(userID);
     }//GEN-LAST:event_jButton7ActionPerformed
 
 

@@ -23,15 +23,16 @@ public class AcceptTask extends javax.swing.JFrame {
     private JTable itemTable;
     private DefaultTableModel tableModel;
     private ArrayList<Order> orderList = Order.loadorders();
-    private String curRunner = "E01";
+    private String userID;
     
-    public AcceptTask() {
+    public AcceptTask(String userID) {
+        this.userID = userID;
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Task Queue");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        tableModel = Order.startAcceptTable(orderList, curRunner);
+        tableModel = Order.startAcceptTable(orderList, userID);
         jTable1.setModel(tableModel);
         jTable1.setDefaultEditor(Object.class, null);
     }
@@ -136,7 +137,7 @@ public class AcceptTask extends javax.swing.JFrame {
     }//GEN-LAST:event_acceptActionPerformed
 
     private void saveAndExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAndExitActionPerformed
-        MenuGUI menuGUI = new MenuGUI();
+        MenuGUI menuGUI = new MenuGUI(userID);
         dispose();
     }//GEN-LAST:event_saveAndExitActionPerformed
 
@@ -150,7 +151,6 @@ public class AcceptTask extends javax.swing.JFrame {
         tableModel.removeRow(row);
        
        Order order= Order.getOrderByID(orderID,Order.getOrderList());
-       //Order.getRandomRunner(curRunner);
        Order.saveToFile(Order.getOrderList());
        JOptionPane.showMessageDialog(this, "Declined!");
     }//GEN-LAST:event_declineActionPerformed

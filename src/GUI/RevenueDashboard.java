@@ -21,21 +21,22 @@ public class RevenueDashboard extends javax.swing.JFrame {
     private DefaultTableModel tableModel2;
     private DefaultTableModel tableModel3;
     private ArrayList<Order> orderList = Order.loadorders();
-    private String curRunner = "E01";
+    private String userID;
     
-    public RevenueDashboard() {
+    public RevenueDashboard(String userID) {
+        this.userID = userID;
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Revenue Dashboard");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        tableModel1 = Order.startRevenueTable(orderList, curRunner, "Daily");
+        tableModel1 = Order.startRevenueTable(orderList, userID, "Daily");
         jTable1.setModel(tableModel1);
         jTable1.setDefaultEditor(Object.class, null);
-        tableModel2 = Order.startRevenueTable(orderList, curRunner, "Monthly");
+        tableModel2 = Order.startRevenueTable(orderList, userID, "Monthly");
         jTable2.setModel(tableModel2);
         jTable2.setDefaultEditor(Object.class, null);
-        tableModel3 = Order.startRevenueTable(orderList, curRunner, "Yearly");
+        tableModel3 = Order.startRevenueTable(orderList, userID, "Yearly");
         jTable3.setModel(tableModel3);
         jTable3.setDefaultEditor(Object.class, null);
     }
@@ -146,7 +147,7 @@ public class RevenueDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        MenuGUI menuGUI = new MenuGUI();
+        MenuGUI menuGUI = new MenuGUI(userID);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

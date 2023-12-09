@@ -2,6 +2,7 @@ package Class;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -122,7 +124,7 @@ public class Order{
     //array
      public static ArrayList loadorders(){
         orderList = new ArrayList<>();
-        String ordersTxt = "C:\\Users\\PC\\Documents\\NetBeansProjects\\Assignment\\src\\Database\\order.txt";
+        String ordersTxt = "src\\Database\\order.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(ordersTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -147,7 +149,7 @@ public class Order{
      }
      
      public static void saveToFile(ArrayList<Order> orderList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\theli\\Documents\\NetBeansProjects\\Java-assignment\\src\\Database\\order.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Database\\order.txt"))) {
             for (Order orderLoad : orderList) {
                 String line = orderLoad.getOrderID() + ", " + orderLoad.getAddress() + ", " + orderLoad.getName() + ", " + orderLoad.getPhoneNum() + ", " + orderLoad.getStatus() + ", " + orderLoad.getRunnerID() + ", " + orderLoad.getDate() + ", " + orderLoad.getEarnings();
                 writer.write(line);
@@ -389,14 +391,7 @@ public class Order{
         }
         return null;
     }
-    
-    public static int getTotalRunners(){
-        int count = 0;
-        for(Order orderLoad : orderList){
-            count++;
-        }
-        return count;
-    }
+
     
      public String toString() {
         return "order{" +

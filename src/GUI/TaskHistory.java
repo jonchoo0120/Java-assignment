@@ -18,16 +18,17 @@ public class TaskHistory extends javax.swing.JFrame {
     private JTable itemTable;
     private DefaultTableModel tableModel;
     private ArrayList<Order> orderList = Order.loadorders();
-    private String curRunner = "E01";
+    private String userID;
 
 
-    public TaskHistory() {
+    public TaskHistory(String userID) {
+        this.userID = userID;
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Task History");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        tableModel = Order.startHistoryTable(orderList, curRunner);
+        tableModel = Order.startHistoryTable(orderList, userID);
         jTable1.setModel(tableModel);
         jTable1.setDefaultEditor(Object.class, null);
     }
@@ -97,7 +98,7 @@ public class TaskHistory extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        MenuGUI menuGUI = new MenuGUI();
+        MenuGUI menuGUI = new MenuGUI(userID);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

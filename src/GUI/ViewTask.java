@@ -19,18 +19,19 @@ public class ViewTask extends javax.swing.JFrame {
     private JTable itemTable;
     private DefaultTableModel tableModel;
     private ArrayList<Order> orderList = Order.loadorders();
-    private String curRunner = "E01";
+    private String userID;
 
     /**
      * Creates new form ViewTask
      */
-    public ViewTask() {
+    public ViewTask(String userID) {
+        this.userID = userID;
         initComponents();
         setLocationRelativeTo(null);
         setTitle("View Task");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-        tableModel = Order.startViewTable(orderList, curRunner);
+        tableModel = Order.startViewTable(orderList, userID);
         jTable2.setModel(tableModel);
         jTable2.setDefaultEditor(Object.class, null);
     }
@@ -156,7 +157,7 @@ public class ViewTask extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        MenuGUI menuGUI = new MenuGUI();
+        MenuGUI menuGUI = new MenuGUI(userID);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
