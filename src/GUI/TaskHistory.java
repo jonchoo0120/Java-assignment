@@ -24,7 +24,7 @@ public class TaskHistory extends javax.swing.JFrame {
     public TaskHistory() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Login");
+        setTitle("Task History");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         tableModel = Order.startHistoryTable(orderList, curRunner);

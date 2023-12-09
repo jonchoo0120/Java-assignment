@@ -28,7 +28,7 @@ public class AcceptTask extends javax.swing.JFrame {
     public AcceptTask() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Login");
+        setTitle("Task Queue");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         tableModel = Order.startAcceptTable(orderList, curRunner);
@@ -107,11 +107,11 @@ public class AcceptTask extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(59, 59, 59)
                 .addComponent(accept)
-                .addGap(72, 72, 72)
+                .addGap(69, 69, 69)
                 .addComponent(decline)
-                .addGap(67, 67, 67)
+                .addGap(80, 80, 80)
                 .addComponent(saveAndExit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)

@@ -26,7 +26,7 @@ public class RevenueDashboard extends javax.swing.JFrame {
     public RevenueDashboard() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Login");
+        setTitle("Revenue Dashboard");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         tableModel1 = Order.startRevenueTable(orderList, curRunner, "Daily");

@@ -124,7 +124,7 @@ public class Order{
     //array
      public static ArrayList loadorders(){
         orderList = new ArrayList<>();
-        String ordersTxt = "C:\\Users\\theli\\Documents\\NetBeansProjects\\Java-assignment\\src\\Database\\order.txt";
+        String ordersTxt = "C:\\Users\\PC\\Documents\\NetBeansProjects\\Assignment\\src\\Database\\order.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(ordersTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {

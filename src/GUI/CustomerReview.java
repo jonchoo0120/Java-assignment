@@ -16,7 +16,7 @@ public class CustomerReview extends javax.swing.JFrame {
     public CustomerReview() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Login");
+        setTitle("Customer Review");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
