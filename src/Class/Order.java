@@ -119,8 +119,6 @@ public class Order{
         Order.tableModel = tableModel;
     }
     
-    
-    
     //array
      public static ArrayList loadorders(){
         orderList = new ArrayList<>();
@@ -158,13 +156,6 @@ public class Order{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-     
-     public static String incrementString(String input) {
-        String numericPart = input.substring(1); 
-        int incrementedValue = Integer.parseInt(numericPart) + 1;
-        String formattedIncrementedValue = String.format("%04d", incrementedValue);
-        return "I" + formattedIncrementedValue;
     }
      
      public static DefaultTableModel initializeTable(ArrayList<Order> orderList) {
