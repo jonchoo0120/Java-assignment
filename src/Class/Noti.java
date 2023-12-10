@@ -5,7 +5,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 public class Noti {; 
@@ -63,7 +65,7 @@ public class Noti {;
     
     public static ArrayList loadnotifications(){
         notiList = new ArrayList<>();
-        String notiTxt = "C:\\Users\\theli\\Documents\\NetBeansProjects\\Java-assignment\\src\\Database\\noti.txt";
+        String notiTxt = "src\\Database\\noti.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(notiTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -83,12 +85,37 @@ public class Noti {;
      }
     
     public static void saveToFile(ArrayList<Noti> notiList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\theli\\Documents\\NetBeansProjects\\Java-assignment\\src\\Database\\noti.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Database\\noti.txt"))) {
             for (Noti notiLoad : notiList) {
                 String line = notiLoad.getRunnerID() + ", " + notiLoad.getNotification() + ", " + notiLoad.getTime();
                 writer.write(line);
                 writer.newLine();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void sendRunnerNoti(String runnerID){
+        String filePath = "src\\Database\\noti.txt";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
+        Date date = new Date();
+        String formattedDate = dateFormat.format(date);
+        try {
+            // Create a FileWriter in append mode to add a line to the file
+            FileWriter fileWriter = new FileWriter(filePath, true); // 'true' for append mode
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            String lineToAdd = runnerID + ", You have new order!" + ", " + formattedDate;
+
+            // Write the line to the file
+            bufferedWriter.write(lineToAdd);
+            bufferedWriter.newLine(); // Add a new line after the entered text
+
+            // Close resources
+            bufferedWriter.close();
+            fileWriter.close();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
