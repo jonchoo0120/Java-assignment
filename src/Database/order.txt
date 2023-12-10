@@ -1,6 +1,6 @@
 1, address1, John, 016-3331111, out_for_delivery, R01, -, 0.0
 2, address2, Lam, 016-2221111, delivered, R01, 12-May-2023, 5.0
-3, address3, Sam, 016-4221111, delivered, R02, 12-May-2023, 5.0
+3, address3, Sam, 016-4221111, pending, R02, 12-May-2023, 5.0
 4, address4, Alex, 016-3221111, delivered, R03, 12-May-2023, 5.0
 5, address5, Hwei, 016-3221111, pending, R05, -, 0.0
 6, address6, Huawei, 016-3221111, pending, R01, -, 0.0
@@ -11,5 +11,7 @@
 11, address11, cHINA, 016-3221111, out_for_delivery, R03, -, 0.0
 12, address12, Lamy, 016-2221111, delivered, R01, 12-May-2023, 6.0
 13, address13, Lamia, 016-2221111, delivered, R01, 12-May-2023, 3.0
-14, address14, Lam, 016-2221111, delivered, R01, 11-May-2023, 8.0
+14, address14, Lam, 016-2221111, delivered, R06, 11-May-2023, 8.0
 15, address14, Lam, 016-2221111, out for delivery, R01, 11-April-2023, 10.0
+16, Jon, d, 0, pending, R03, 10/Dec/2023, 5.0
+17, Jon, d, 0, pending, R04, 10/Dec/2023, 5.0

@@ -343,13 +343,21 @@ public class Order{
 
     }
         
-//    public static String getRandomRunner(String curRunner){
-//        String runner;
-//        for(){
-//            
-//        }
-//        return runner;
-//    }
+    public static int getTotalOrders(){
+        int count = 0;
+        String ordersTxt = "src\\Database\\order.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(ordersTxt))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                count++;
+        }
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        count++;
+        return count;
+    }
      
     public static void saveTableData(JTable jTable1, ArrayList<Order> orderList) {
     int numRows = jTable1.getRowCount();

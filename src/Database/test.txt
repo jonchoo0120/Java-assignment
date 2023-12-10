@@ -1,0 +1,10 @@
+J1, address1, John, 016-3331111, out_for_delivery, R01, -, 0.0
+15, d, 0, pendingR01, 5.0
+15, d, 0, pendingR01, 5.0
+15, d, 0, pendingR01, 5.0
+15, d, 0, pendingR01, 5.0
+15, d, 0, pendingR01, 5.0
+15, d, 0, pendingR01, 5.0
+16, d, 0, pendingR01, 5.0
+16, d, 0, pending, R01, 10/Dec/2023, 5.0
+16, d, 0, pending, R03, 10/Dec/2023, 5.0
